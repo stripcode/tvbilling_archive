@@ -1,0 +1,16 @@
+#! /usr/bin/env python3
+from gevent.wsgi import WSGIServer
+from app import app, db
+import logging
+from logging.handlers import TimedRotatingFileHandler
+
+handler = TimedRotatingFileHandler(app.config["LOGS_DIR"] + 'tv.log', when = "D")
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(filename)s:%(lineno)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+app.logger.addHandler(handler)
+
+db.init_app(app)
+
+http_server = WSGIServer(('', 4444), app)
+http_server.serve_forever()

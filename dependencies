@@ -1,0 +1,8 @@
+flask
+flask_sqlalchemy
+sqlalchemy
+marshmallow_sqlalchemy
+pymysql
+gevent
+requests
+python-dateutil
